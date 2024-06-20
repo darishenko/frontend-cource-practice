@@ -5,8 +5,9 @@ const ACTION_COMPARE_CLASS_SELECTOR = ".card__action-compare";
 const CARD_CLASS_SELECTOR = ".card";
 const TRANSLUCENT_CARD_CLASS = "card--translucent";
 const HIDDEN_CARD_CLASS = "card-hidden";
+const HIDE_CARDS_CHECKBOX_CLASS_SELECTOR = ".catalog__checkbox label input";
 const hideCardCheckbox = document.querySelector(
-  ".catalog__checkbox label input",
+  HIDE_CARDS_CHECKBOX_CLASS_SELECTOR,
 );
 const showHiddenCheckboxes = document.querySelectorAll(
   ACTION_HIDE_CLASS_SELECTOR,
@@ -18,9 +19,9 @@ const showCompareButtons = document.querySelectorAll(
   ACTION_COMPARE_CLASS_SELECTOR,
 );
 
-let hiddenCards = [];
-let favoriteCards = [];
-let comparableCards = [];
+const hiddenCards = [];
+const favoriteCards = [];
+const comparableCards = [];
 
 showHiddenCheckboxes.forEach((button) => {
   button.addEventListener("click", () => toggleCardHideState(button));
@@ -34,20 +35,31 @@ showCompareButtons.forEach((button) => {
   button.addEventListener("click", () => toggleCardCompareState(button));
 });
 
+hideCardCheckbox.addEventListener("change", () => toggleHiddenCards());
+
+const toggleHiddenCards = function () {
+  hiddenCards.forEach((cardId) => {
+    const cardClasses = document.getElementById(cardId).classList;
+    cardClasses.toggle(TRANSLUCENT_CARD_CLASS);
+    cardClasses.toggle(HIDDEN_CARD_CLASS);
+  });
+};
+
 const toggleCardHideState = function (button) {
-  toggleCardState(button, hiddenCards, ACTION_HIDE_CLASS_SELECTOR);
+  toggleCardState(button, hiddenCards);
 };
 
 const toggleCardFavoriteState = function (button) {
-  toggleCardState(button, favoriteCards, ACTION_FAVORITE_CLASS_SELECTOR);
+  toggleCardState(button, favoriteCards);
 };
 
 const toggleCardCompareState = function (button) {
-  toggleCardState(button, comparableCards, ACTION_COMPARE_CLASS_SELECTOR);
+  toggleCardState(button, comparableCards);
 };
-const toggleCardState = function (button, actionCards, actionClassSelector) {
-  let card = button.closest(CARD_CLASS_SELECTOR);
-  let cardId = card.id;
+
+const toggleCardState = function (button, actionCards) {
+  const card = button.closest(CARD_CLASS_SELECTOR);
+  const cardId = card.id;
   if (!actionCards.includes(cardId)) {
     actionCards.push(cardId);
   } else {
@@ -55,11 +67,10 @@ const toggleCardState = function (button, actionCards, actionClassSelector) {
   }
   button.classList.toggle(ACTIVE_ACTION_CLASS);
 
-  if (ACTION_HIDE_CLASS_SELECTOR === actionClassSelector) {
-    if (hideCardCheckbox.checked) {
-      card.classList.toggle(TRANSLUCENT_CARD_CLASS);
-    } else {
-      card.classList.toggle(HIDDEN_CARD_CLASS);
-    }
+  if (button.matches(ACTION_HIDE_CLASS_SELECTOR)) {
+    const cardHideClass = hideCardCheckbox.checked
+      ? TRANSLUCENT_CARD_CLASS
+      : HIDDEN_CARD_CLASS;
+    card.classList.toggle(cardHideClass);
   }
 };
