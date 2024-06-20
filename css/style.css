@@ -24,9 +24,19 @@ body {
     text-align: center;
     background-color: #E9E8E8;
     position: relative;
+    transition: 1s ease;
 }
 
-.catalog__card--new .card__content::after {
+.card--translucent {
+    opacity: 50%;
+    transition: 1s ease;
+}
+
+.card-hidden {
+    display: none;
+}
+
+.card--new .card__content::after {
     padding: 2px 3px;
     position: absolute;
     left: 7px;
@@ -39,7 +49,7 @@ body {
 }
 
 .card__content {
-    margin: 20px 20px;
+    margin: 21px 20px auto;
     padding: 30px 40px 15px;
     position: relative;
     background-color: white;
@@ -166,11 +176,16 @@ body {
     opacity: 1;
 }
 
+.card__actions li.card__action--active {
+    color: white;
+    background: #009fff;
+}
+
 .card__actions li:hover {
     transform: scale(1.2);
     cursor: pointer;
     color: white;
-    background: #D8D8D8;
+    background-color: #167EC4;
     transition: transform 0.5s ease, background 0.5s ease;
 }
 
