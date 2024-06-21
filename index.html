@@ -10,22 +10,31 @@
 </head>
 <body>
 <div class="catalog">
-    <div class="catalog__filters">
+    <div class="catalog__filter">
         <div class="catalog__checkbox">
             <label>
                 <input checked type="checkbox">
                 Show hidden
             </label>
         </div>
-        <button class="catalog__button">
-            All
-        </button>
-        <button class="catalog__button">
-            Favourites
-        </button>
-        <button class="catalog__button">
-            Comparison
-        </button>
+        <div class="catalog__filter-button">
+            <input autofocus id="catalog-filter-all" name="catalog-filter" type="radio" value="all">
+            <label class="catalog__button" for="catalog-filter-all">
+                All
+            </label>
+        </div>
+        <div class="catalog__filter-button">
+            <input id="catalog-filter-favourites" name="catalog-filter" type="radio" value="favourites">
+            <label class="catalog__button" for="catalog-filter-favourites">
+                Favourites
+            </label>
+        </div>
+        <div class="catalog__filter-button">
+            <input id="catalog-filter-comparison" name="catalog-filter" type="radio" value="comparison">
+            <label class="catalog__button" for="catalog-filter-comparison">
+                Comparison
+            </label>
+        </div>
     </div>
     <section class="catalog__cards">
         <article class="card card--new" id="catalog-card-1">
