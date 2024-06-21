@@ -32,7 +32,7 @@ body {
     transition: 1s ease;
 }
 
-.card-hidden {
+.card--hidden {
     display: none;
 }
 
